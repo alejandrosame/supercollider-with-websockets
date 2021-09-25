@@ -88,7 +88,9 @@ const int ivxNetAddr_PortID = 1;
 // const int ivxNetAddr_Hostname = 2; // unused
 const int ivxNetAddr_Socket = 3;
 
-static int makeSynthMsgWithTags(big_scpacket* packet, PyrSlot* slots, int size);
+int makeSynthMsgWithTags(big_scpacket* packet, PyrSlot* slots, int size);
+
+
 
 int makeSynthBundle(big_scpacket* packet, PyrSlot* slots, int size, bool useElapsed);
 
@@ -200,7 +202,7 @@ static int addMsgSlotWithTags(big_scpacket* packet, PyrSlot* slot) {
     return errNone;
 }
 
-static int makeSynthMsgWithTags(big_scpacket* packet, PyrSlot* slots, int size) {
+int makeSynthMsgWithTags(big_scpacket* packet, PyrSlot* slots, int size) {
     packet->BeginMsg();
 
     // First component: OSC Address Pattern.
@@ -572,7 +574,7 @@ static PyrInt8Array* MsgToInt8Array(sc_msg_iter& msg, bool runGC) {
 
 static const double dInfinity = std::numeric_limits<double>::infinity();
 
-static PyrObject* ConvertOSCMessage(int inSize, char* inData) {
+PyrObject* ConvertOSCMessage(int inSize, char* inData) {
     char* cmdName = inData;
     int cmdNameLen = OSCstrlen(cmdName);
     sc_msg_iter msg(inSize - cmdNameLen, inData + cmdNameLen);
